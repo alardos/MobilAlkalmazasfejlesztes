@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Okmányiroda</string>
+    <string name="password">Jelszó</string>
+    <string name="login">Bejelentkezés</string>
+    <string name="register">Regisztráció</string>
+    <string name="userName">Felhasználónév</string>
+    <string name="personalID">Személyigazolvány szám</string>
+    <string name="firstName">Keresztnév</string>
+    <string name="surName">Vezetéknév</string>
+    <string name="passwordAgain">Jelszó mégegyszer</string>
+    <string name="email">Email</string>
+    <string name="magyarOkmanyHivatal">Magyar Okmányhivatal</string>
+    <string name="anonimDate">Időpontfoglalás regisztráció nélkül</string>
+    <string name="chooseDay">Nap választása</string>
+    <string name="avalibeTimes">Időpontok</string>
 </resources>

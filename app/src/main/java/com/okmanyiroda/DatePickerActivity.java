@@ -4,6 +4,7 @@ package com.okmanyiroda;
 
 import static java.lang.System.currentTimeMillis;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,17 +13,51 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 
 public class DatePickerActivity extends AppCompatActivity {
 	private static final String LOG_TAG = LoginActivity .class.getName();
 	private static final int SECRET_KEY = 123456789;
 	FirebaseUser user;
+	FirebaseFirestore firestore;
+	CollectionReference firebaseCollection;
 	
 	Long time;
+	
+	class MyClass{
+		private String name;
+		private int age;
+		
+		public MyClass(String name, int age){
+			this.name = name;
+			this.age = age;
+		}
+		
+		public String getName() {
+			return name;
+		}
+		
+		public void setName(String name) {
+			this.name = name;
+		}
+		
+		public int getAge() {
+			return age;
+		}
+		
+		public void setAge(int age) {
+			this.age = age;
+		}
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +71,10 @@ public class DatePickerActivity extends AppCompatActivity {
 		if (!user.isAnonymous()) {
 			title.setText((CharSequence) "Időpontfoglalás bejelentkezés nélkül");
 		}
+		
+		
+		
+		
 		
 	}
 	

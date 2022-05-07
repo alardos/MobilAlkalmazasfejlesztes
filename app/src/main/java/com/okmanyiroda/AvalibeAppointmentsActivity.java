@@ -5,13 +5,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-public class AvalibeTimesActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class AvalibeAppointmentsActivity extends AppCompatActivity {
 	
-	private RecyclerView recyclerview
+	private RecyclerView recyclerView;
+	private ArrayList<Appointment> appointmentList;
+	private AppointmentsAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_avalibe_times);
+		setContentView(R.layout.activity_avalibe_appointments);
 	}
 }

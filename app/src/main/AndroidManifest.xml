@@ -11,6 +11,9 @@
         android:theme="@style/Theme.Okmanyiroda"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AvalibeAppointmentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".DatePickerActivity"
             android:exported="false" />
         <activity

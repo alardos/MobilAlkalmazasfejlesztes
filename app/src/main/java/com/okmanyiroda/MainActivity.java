@@ -6,16 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,45 +41,15 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 		auth = FirebaseAuth.getInstance();
 		
-		firestore = FirebaseFirestore.getInstance();
-		firebaseCollection = firestore.collection("Items");
 		
-		LinkedList<MyClass> list = new LinkedList<MyClass>();
 		
-		firebaseCollection.add(new MyClass("Név", 11));
-		
-		firebaseCollection.orderBy("name").get().addOnSuccessListener(queryDocumentSnapshots -> {
-			for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-				MyClass item = documentSnapshot.toObject(MyClass.class);
-				list.add(item);
-			}
-		});
+//		firebaseCollection.orderBy("name").get().addOnSuccessListener(queryDocumentSnapshots -> {
+//			for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+//				MyClass item = documentSnapshot.toObject(MyClass.class);
+//				list.add(item);
+//			}
+//		});
 
-	}
-	class MyClass{
-		private String name;
-		private int age;
-		
-		public MyClass(String name, int age){
-			this.name = name;
-			this.age = age;
-		}
-		
-		public String getName() {
-			return name;
-		}
-		
-		public void setName(String name) {
-			this.name = name;
-		}
-		
-		public int getAge() {
-			return age;
-		}
-		
-		public void setAge(int age) {
-			this.age = age;
-		}
 	}
 	
 	public void login(View view) {

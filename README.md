@@ -1,2 +1,2 @@
-# Mobilalk Almazásfejlesztés projekt munka
+# Mobil Almazásfejlesztés projekt munka
 ### Okmányhivatal időpont foglalás

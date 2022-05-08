@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 		
 		auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, task -> {
 			if (task.isSuccessful()){
+				Log.i(LOG_TAG, "Autenthication successful");
 				Toast.makeText(LoginActivity.this, "A bejelentkezés sikeres", Toast.LENGTH_SHORT).show();
 				
 				notificationHandler.send("Be van jelentkezve az okmányiroda alkalmazásva\nKoppintson a kijelentkezéshez");

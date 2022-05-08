@@ -30,15 +30,20 @@ public class AvalibeAppointmentsActivity extends AppCompatActivity {
 	private ArrayList<Appointment> appointmentList;
 	private AppointmentsAdapter adapter;
 	
-	private static final String LOG_TAG = LoginActivity .class.getName();
+	private static final String LOG_TAG = AvalibeAppointmentsActivity.class.getName();
+	private static final int SECRET_KEY = 123456789;
 	
 	private FirebaseFirestore firestore;
 	private CollectionReference firebaseCollection;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_avalibe_appointments);
+		
+		if (getIntent().getIntExtra("SECRET_KEY",0) != SECRET_KEY) finish();
 		
 //		LocalDate date = LocalDate.parse(getIntent().getStringExtra("date"));
 		
@@ -48,7 +53,7 @@ public class AvalibeAppointmentsActivity extends AppCompatActivity {
 		adapter = new AppointmentsAdapter(this,appointmentList);
 		recyclerView.setAdapter(adapter);
 		
-		fillTheDatabase();
+		
 		
 		if (getIntent().getIntExtra("year",-1) != -1){
 			LocalDateTime startdt = LocalDateTime.of(
@@ -66,7 +71,7 @@ public class AvalibeAppointmentsActivity extends AppCompatActivity {
 					23,
 				59);
 			queryData(startdt.toEpochSecond(ZoneOffset.of("+02:00"))*1000,enddt.toEpochSecond(ZoneOffset.of("+02:00"))*1000);
-			
+			return;
 		}else{
 			
 			queryData();
@@ -74,37 +79,37 @@ public class AvalibeAppointmentsActivity extends AppCompatActivity {
 		
 		
 		
-//		initializeData();
+
 	}
 	
-	private void fillTheDatabase() {
+	
+	private void queryData(long start, long end){Log.i(LOG_TAG, "Querying between " + start + " and " + end);
 		firestore = FirebaseFirestore.getInstance();
 		firebaseCollection = firestore.collection("appointmentList");
-		
 	}
 	
 	
-	
-	private void queryData(long start, long end){
-		Log.i(LOG_TAG, "Querying between " + start + " and " + end);
-		firestore = FirebaseFirestore.getInstance();
-		firebaseCollection = firestore.collection("appointmentList");
+//	private void queryData(){
 		
-		ArrayList<Appointment> list = new ArrayList<Appointment>();
 		
-		firebaseCollection.whereGreaterThan("appointmentTime",start).whereLessThan("appointmentTime",end).get().addOnSuccessListener(queryDocumentSnapshots -> {
-			for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
-				Map<String,Object> map = snapshot.getData();
-				appointmentList.add(new Appointment(Instant.ofEpochMilli((long) map.get("appointmentTime")).atZone(ZoneId.systemDefault()).toLocalDateTime()));
-			}
-			adapter.notifyDataSetChanged();
-		}).addOnFailureListener(new OnFailureListener() {
-			@Override
-			public void onFailure(@NonNull Exception e) {
-				int i = 5;
-			}
-		});
-	}
+
+
+//		ArrayList<Appointment> list = new ArrayList<Appointment>();
+//
+//		firebaseCollection.whereGreaterThan("appointmentTime",start).whereLessThan("appointmentTime",end).get().addOnSuccessListener(queryDocumentSnapshots -> {
+//			for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+//				Log.i(LOG_TAG, "Available time has been found");
+//				Map<String,Object> map = snapshot.getData();
+//				appointmentList.add(new Appointment(Instant.ofEpochMilli((long) map.get("appointmentTime")).atZone(ZoneId.systemDefault()).toLocalDateTime()));
+//			}
+//			adapter.notifyDataSetChanged();
+//		}).addOnFailureListener(new OnFailureListener() {
+//			@Override
+//			public void onFailure(@NonNull Exception e) {
+//				int i = 5;
+//			}
+//		});
+//	}
 	
 
 	
@@ -116,6 +121,7 @@ public class AvalibeAppointmentsActivity extends AppCompatActivity {
 		
 		firebaseCollection.get().addOnSuccessListener(queryDocumentSnapshots -> {
 			for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+				Log.i(LOG_TAG, "Available time has been found");
 				Map<String,Object> map = snapshot.getData();
 				appointmentList.add(new Appointment(Instant.ofEpochMilli((long) map.get("appointmentTime")).atZone(ZoneId.systemDefault()).toLocalDateTime()));
 			}

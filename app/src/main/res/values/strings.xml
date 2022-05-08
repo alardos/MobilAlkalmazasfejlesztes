@@ -13,4 +13,6 @@
     <string name="anonimDate">Időpontfoglalás regisztráció nélkül</string>
     <string name="chooseDay">Nap választása</string>
     <string name="avalibeTimes">Időpontok</string>
+    <string name="messageUnderCalendar">Kérem adja meg azt a napot amikor az időpontot szeretné</string>
+    <string name="allAppointmentTime">Minden időpont</string>
 </resources>

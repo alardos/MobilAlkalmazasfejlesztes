@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,8 +77,7 @@ public class DatePickerActivity extends AppCompatActivity {
 		}
 		
 				
-				((CalendarView) findViewById(R.id.calendarView)).setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-			
+		((CalendarView) findViewById(R.id.calendarView)).setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 			@Override
 			public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
 				
@@ -86,16 +87,22 @@ public class DatePickerActivity extends AppCompatActivity {
 			}
 		});
 		
-		
-		
-		
-		
-		
-		
-		
+		((Button) findViewById(R.id.button_datePicker_allAppointment)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(DatePickerActivity.this,AvalibeAppointmentsActivity.class);
+				intent.putExtra("SECRET_KEY" , DatePickerActivity.SECRET_KEY);
+				startActivity(intent);
+			}
+		});
 		
 	}
 	
+	
+	public void noRestriction(View view) {
+	
+	
+	}
 	
 	
 	

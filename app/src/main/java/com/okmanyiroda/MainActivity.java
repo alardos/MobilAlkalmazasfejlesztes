@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 			public void onComplete(@NonNull Task<AuthResult> task) {
 				if (task.isSuccessful()){
 					Toast.makeText(MainActivity.this, "Időpontfoglalás bejelentkezés nélkül", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(MainActivity.this, AvalibeAppointmentsActivity.class);
+					Intent intent = new Intent(MainActivity.this, DatePickerActivity.class);
 					intent.putExtra("SECRET_KEY",SECRET_KEY);
 					startActivity(intent);
 				}else{

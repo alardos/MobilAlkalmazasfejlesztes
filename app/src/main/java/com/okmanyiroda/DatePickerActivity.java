@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,17 +87,14 @@ public class DatePickerActivity extends AppCompatActivity {
 			}
 		});
 		
-		
-		
-		
-		
-		
-		
-		
+
 		
 	}
 	
-	
+	public void allAppointments(View view) {
+		Intent intent = new Intent(DatePickerActivity.this,AvalibeAppointmentsActivity.class);
+		startActivity(intent);
+	}
 	
 	
 	@Override
@@ -123,4 +121,6 @@ public class DatePickerActivity extends AppCompatActivity {
 		}
 		super.onStart();
 	}
+	
+	
 }

@@ -7,12 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.okmanyiroda.model.Appointment;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -20,7 +28,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 	private static final String LOG_TAG = AppointmentsAdapter.class.getName();
 	private ArrayList<Appointment> appointmentList;
 	private ArrayList<Appointment> appointmentListAll;
-	private Context context;
+	Context context;
 	private int lastPosition = -1;
 	
 	AppointmentsAdapter(Context content, ArrayList<Appointment> appointmentList){
@@ -59,6 +67,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 		private TextView dateTextView;
 		private TextView timeTextView;
 		private Button applyButton;
+		private LocalDateTime time;
 		
 		public ViewHolder(@NonNull View itemView) {
 			
@@ -74,15 +83,38 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 		public void bindTo(Appointment appointment) {
 			
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-			
-			String time = appointment.getAppointmentTime().format(formatter);
+			time = appointment.getAppointmentTime();
+			String timestr = time.format(formatter);
 			
 			
 
-			dateTextView.setText(time);
+			dateTextView.setText(timestr);
 			if (!dateTextView.getText().equals("TextView")) {
 				Log.i(LOG_TAG, "Time View set");
 			}
+			
+			applyButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					
+					// TODO: debug the appointment apply query
+					// appointmentList.add(new Appointment(Instant.ofEpochMilli((long) map.get("appointmentTime")).atZone(ZoneId.systemDefault()).toLocalDateTime()));
+					CollectionReference collection = FirebaseFirestore.getInstance().collection("Users");
+					
+					collection.whereEqualTo("id", FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+						@Override
+						public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+							collection.document().update(
+									"appotintmentTime",
+									time.toEpochSecond(ZoneOffset.of("+02:00"))*1000);
+						}
+					});
+					
+					
+				}
+				
+				
+			});
 		}
 	}
 	

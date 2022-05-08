@@ -2,6 +2,7 @@ package com.okmanyiroda.model;
 
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class User {
 	
@@ -10,23 +11,25 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
-	private String personalID;
+	private String personalid;
+	
+	public User(){}
 	
 	public User(String firstName, String lastName, String email, String password, String personalID){
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.personalID = personalID;
+		this.personalid = personalID;
 	}
 	
 	public HashMap<String, String> asHash(){
 		HashMap<String, String> userHash = new HashMap<String, String>();
 		userHash.put("id",this.getId());
-		userHash.put("personalId",this.getPersonalId());
+		userHash.put("personalId",this.getPersonalid());
 		userHash.put("email", this.getEmail());
-		userHash.put("firstName",this.getFirstName());
-		userHash.put("lastName",this.getLastName());
+		userHash.put("firstName",this.getFirstname());
+		userHash.put("lastName",this.getLastname());
 		userHash.put("password",this.getPassword());
 		return userHash;
 	}
@@ -39,19 +42,19 @@ public class User {
 		return id;
 	}
 	
-	public String getFirstName() {
+	public String getFirstname() {
 		return firstName;
 	}
 	
-	public void setFirstName(String firstName) {
+	public void setFirstname(String firstName) {
 		this.firstName = firstName;
 	}
 	
-	public String getLastName() {
+	public String getLastname() {
 		return lastName;
 	}
 	
-	public void setLastName(String lastName) {
+	public void setLastname(String lastName) {
 		this.lastName = lastName;
 	}
 	
@@ -71,11 +74,11 @@ public class User {
 		this.password = password;
 	}
 	
-	public String getPersonalId() {
-		return personalID;
+	public String getPersonalid() {
+		return personalid.toLowerCase(Locale.ROOT);
 	}
 	
-	public void setPersonalID(String personalID) {
-		this.personalID = personalID;
+	public void setPersonalid(String personalid) {
+		this.personalid = personalid.toLowerCase(Locale.ROOT);
 	}
 }

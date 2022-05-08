@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class RegistrationActivity extends AppCompatActivity {
 	
-	private static final String LOG_TAG = LoginActivity .class.getName();
+	private static final String LOG_TAG = LoginActivity.class.getName();
 	private static final int SECRET_KEY = 123456789;
 	private FirebaseAuth auth;
 	private FirebaseFirestore firestore;
@@ -55,12 +55,12 @@ public class RegistrationActivity extends AppCompatActivity {
 		
 		// Checking if any fields are empty
 		if (
-				user.getFirstName().isEmpty() ||
-				user.getLastName().isEmpty() ||
+				user.getFirstname().isEmpty() ||
+				user.getLastname().isEmpty() ||
 				user.getEmail().isEmpty() ||
 				password2.isEmpty() ||
 				user.getPassword().isEmpty() ||
-				user.getPersonalId().isEmpty()
+				user.getPersonalid().isEmpty()
 		)
 		{
 			Toast.makeText(this, "Minden mezőt ki kell tölteni", Toast.LENGTH_SHORT).show();
@@ -98,7 +98,7 @@ public class RegistrationActivity extends AppCompatActivity {
 			user.setId(auth.getUid());
 			
 			firestore = FirebaseFirestore.getInstance();
-			firestore.collection("Users").add(user.asHash()).addOnCompleteListener(task1 -> {
+			firestore.collection("Users").add(user).addOnCompleteListener(task1 -> {
 				Toast.makeText(RegistrationActivity.this, "A regisztráció sikeres", Toast.LENGTH_SHORT).show();
 			});
 			

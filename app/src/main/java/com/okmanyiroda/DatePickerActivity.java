@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +21,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.okmanyiroda.model.User;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class DatePickerActivity extends AppCompatActivity {
@@ -33,31 +41,7 @@ public class DatePickerActivity extends AppCompatActivity {
 	
 	Long time;
 	
-	class MyClass{
-		private String name;
-		private int age;
-		
-		public MyClass(String name, int age){
-			this.name = name;
-			this.age = age;
-		}
-		
-		public String getName() {
-			return name;
-		}
-		
-		public void setName(String name) {
-			this.name = name;
-		}
-		
-		public int getAge() {
-			return age;
-		}
-		
-		public void setAge(int age) {
-			this.age = age;
-		}
-	}
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +52,51 @@ public class DatePickerActivity extends AppCompatActivity {
 		TextView title = findViewById(R.id.textView_datePicker_title);
 		Log.i(LOG_TAG, user.toString());
 		title.setText(user.getEmail());
-		if (!user.isAnonymous()) {
+		
+		
+		firestore = FirebaseFirestore.getInstance();
+		
+		
+		if (user.isAnonymous()) {
 			title.setText((CharSequence) "Időpontfoglalás bejelentkezés nélkül");
+		} else{
+			Query q = firestore.collection("Users").whereEqualTo("email", user.getEmail());
+			q.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+				@Override
+				public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+					for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+						
+						User user = snapshot.toObject(User.class);
+						title.setText("Üdv " + user.getFirstname());
+					}
+				}
+			});
+			
 		}
+		
+				
+				((CalendarView) findViewById(R.id.calendarView)).setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+			
+			@Override
+			public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+				
+				Intent intent = new Intent(DatePickerActivity.this,AvalibeAppointmentsActivity.class);
+				intent.putExtra("year",year).putExtra("month",month+1).putExtra("dayOfMonth",dayOfMonth);
+				startActivity(intent);
+			}
+		});
+		
+		
+		
+		
 		
 		
 		
 		
 		
 	}
+	
+	
 	
 	
 	@Override

@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="128dp"
         android:text="@string/login"
+        style="?attr/borderlessButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -25,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register"
+
         app:layout_constraintBottom_toTopOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -123,7 +125,7 @@
         android:ems="10"
         android:drawableEnd="@drawable/ic_baseline_alternate_email_24"
         android:hint="@string/email"
-        android:inputType="textPersonName"
+        android:inputType="text|textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText.registration.firstName" />

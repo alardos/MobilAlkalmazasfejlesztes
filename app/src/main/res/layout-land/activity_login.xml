@@ -11,14 +11,14 @@
         android:id="@+id/editText.login.email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="248dp"
-        android:ems="10"
+        android:layout_marginTop="36dp"
         android:drawableEnd="@drawable/ic_baseline_alternate_email_24"
+        android:ems="10"
         android:hint="@string/email"
         android:inputType="text|textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +42,7 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:onClick="login"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,13 +54,12 @@
         style="?attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
         android:onClick="register"
         android:text="@string/register"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
